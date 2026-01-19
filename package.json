@@ -2,6 +2,7 @@
   "name": "nodejs-argo",
   "version": "8.8.8",
   "description": "Thsi is a node project",
+  "type": "commonjs",
   "main": "index.js",
   "author": "gaodashang167",
   "repository": "https://github.com/gaodashang167/laowang-nodejs-argo",
