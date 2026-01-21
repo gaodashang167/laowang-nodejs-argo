@@ -1,0 +1,32 @@
+name: NK Auto Heartbeat
+
+on:
+  schedule:
+    - cron: '*/45 * * * *'
+  workflow_dispatch:
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: appveyor 
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Heartbeat File
+        run: |
+          RAND_DELAY=$(( RANDOM % 300 + 1 ))
+          echo "随机等待 $RAND_DELAY 秒..."
+          sleep $RAND_DELAY
+          
+          RAND_ID=$(openssl rand -hex 2)
+          export TZ='Asia/Shanghai'
+          date > heartbeat.txt
+          
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add heartbeat.txt
+          git commit -m "Update NK-A service [ID: ${RAND_ID}] at $(date)"
+          git push origin appveyor:appveyor
