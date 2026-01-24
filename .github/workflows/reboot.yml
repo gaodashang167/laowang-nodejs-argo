@@ -1,9 +1,9 @@
 name: NK Auto Heartbeat
 
-on:
+"on":
   schedule:
-    - cron: '0,45 * * * *'
-  workflow_dispatch:
+    - cron: "0,45 * * * *"
+  workflow_dispatch: {}
 
 permissions:
   contents: write
