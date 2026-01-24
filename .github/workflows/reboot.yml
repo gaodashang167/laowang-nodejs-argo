@@ -1,12 +1,12 @@
 name: NK Auto Heartbeat
 
 on:
-schedule:
-  - cron: '0,45 * * * *'
+  schedule:
+    - cron: '0,45 * * * *'
   workflow_dispatch:
 
 permissions:
-  contents: write   # ⭐ 必须加
+  contents: write
 
 jobs:
   heartbeat:
@@ -15,9 +15,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: main
-          fetch-depth: 0   # ⭐ 必须
-          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Heartbeat File
         run: |
@@ -34,4 +33,4 @@ jobs:
 
           git add heartbeat.txt
           git commit -m "Update NK-A service [ID: ${RAND_ID}] at $(date)" || echo "No changes"
-          git push origin main
+          git push
